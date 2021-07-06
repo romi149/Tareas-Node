@@ -1,6 +1,7 @@
 // const { pausa } = require('./helper/mensajes');
 
 const { inquirerMenu, pausa } = require('./helper/inquirer');
+const Tareas = require('./models/tareas');
 
 require( 'colors' );
 console.clear();

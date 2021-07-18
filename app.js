@@ -1,20 +1,38 @@
 // const { pausa } = require('./helper/mensajes');
 
-const { inquirerMenu, pausa } = require('./helper/inquirer');
-const Tareas = require('./models/tareas');
-
 require( 'colors' );
-console.clear();
+
+const { guardarDB } = require('./helper/guardarArchivo');
+const { inquirerMenu, 
+        pausa,
+        leerInput
+    } = require('./helper/inquirer');
+const Tareas = require('./models/tareas');
 
 const main = async() =>{
 
-    console.log('Hola Mundo');
-
     let opt = '';
+    const tareas = new Tareas();
 
     do {
+        //Imprimir el menú
         opt = await inquirerMenu();
-        console.log({opt});
+
+        switch (opt) {
+            case '1':
+               // crear opcion
+               const desc = await leerInput('Descripcion:');
+               console.log(desc);
+               tareas.crearTarea( desc );
+                
+            break;
+        
+            case '2':
+                console.log( tareas.listadoArr );
+            break;    
+        }
+
+        guardarDB( tareas.listadoArr );
         
         await pausa();
     
